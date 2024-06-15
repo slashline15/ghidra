@@ -598,8 +598,8 @@ define pcodeop th.mvneqz;
 :th.swd rd, rs2, (rs1), uimm2526, 3 is op2731=0x1c & uimm2526 & rs2 & rs1 & op1214=0x5 & rd & op0006=0xb
 {
     local ea:$(XLEN) = rs1 + (zext(uimm2526) << 3);
-    *[ram]:4 ea = rd;
-    *[ram]:4 (ea + 4) = rs2;
+    *[ram]:4 ea = rd:4;
+    *[ram]:4 (ea + 4) = rs2:4;
 }
 @endif
 
