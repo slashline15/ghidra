@@ -527,21 +527,21 @@ define pcodeop th.mvneqz;
 :th.surb rd, rs1, rs2, uimm2526 is op2731=0x02 & uimm2526 & rs2 & rs1 & op1214=0x5 & rd & op0006=0xb
 {
     local ea:$(XLEN) = rs1 + (zext(rs2) << uimm2526);
-    *[ram]:1 ea = rd;
+    *[ram]:1 ea = rd:1;
 }
 
 #    Store unsigned indexed half-word
 :th.surh rd, rs1, rs2, uimm2526 is op2731=0x06 & uimm2526 & rs2 & rs1 & op1214=0x5 & rd & op0006=0xb
 {
     local ea:$(XLEN) = rs1 + (zext(rs2) << uimm2526);
-    *[ram]:2 ea = rd;
+    *[ram]:2 ea = rd:2;
 }
 
 #    Store unsigned indexed word
 :th.surw rd, rs1, rs2, uimm2526 is op2731=0x0a & uimm2526 & rs2 & rs1 & op1214=0x5 & rd & op0006=0xb
 {
     local ea:$(XLEN) = rs1 + (zext(rs2) << uimm2526);
-    *[ram]:4 ea = rd;
+    *[ram]:4 ea = rd:4;
 }
 
 @if ADDRSIZE == "64"
