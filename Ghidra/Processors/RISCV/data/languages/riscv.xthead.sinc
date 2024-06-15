@@ -646,7 +646,7 @@ define pcodeop th.mvneqz;
 :th.fsrw frd, rs1, rs2, uimm2526 is op2731=0x08 & uimm2526 & rs2 & rs1 & op1214=0x7 & frd & op0006=0xb
 {
     local ea:$(XLEN) = rs1 + (rs2 << uimm2526);
-    *[ram]:4 ea = frd;
+    *[ram]:4 ea = frd:4;
 }
 
 #    Store unsigned indexed double-precision floating point value
@@ -660,7 +660,7 @@ define pcodeop th.mvneqz;
 :th.fsurw frd, rs1, rs2, uimm2526 is op2731=0x0a & uimm2526 & rs2 & rs1 & op1214=0x7 & frd & op0006=0xb
 {
     local ea:$(XLEN) = rs1 + (zext(rs2) << uimm2526);
-    *[ram]:4 ea = frd;
+    *[ram]:4 ea = frd:4;
 }
 
 @endif
