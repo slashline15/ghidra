@@ -122,16 +122,17 @@ class Funcdata {
   JumpTable::RecoveryMode stageJumpTable(Funcdata &partial,JumpTable *jt,PcodeOp *op,FlowInfo *flow);
   void switchOverJumpTables(const FlowInfo &flow);	///< Convert jump-table addresses to basic block indices
   void clearJumpTables(void);			///< Clear any jump-table information
-
-  void sortCallSpecs(void);			///< Sort calls using a dominance based order
-  void deleteCallSpecs(PcodeOp *op);		///< Remove the specification for a particular call
-  void clearCallSpecs(void);			///< Remove all call specifications
-
   BlockBasic *nodeSplitBlockEdge(BlockBasic *b,int4 inedge);
   PcodeOp *nodeSplitCloneOp(PcodeOp *op);
   void nodeSplitCloneVarnode(PcodeOp *op,PcodeOp *newop);
   void nodeSplitRawDuplicate(BlockBasic *b,BlockBasic *bprime);
   void nodeSplitInputPatch(BlockBasic *b,BlockBasic *bprime,int4 inedge);
+
+  void sortCallSpecs(void);			///< Sort calls using a dominance based order
+  void deleteCallSpecs(PcodeOp *op);		///< Remove the specification for a particular call
+  void clearCallSpecs(void);			///< Remove all call specifications
+  void issueDatatypeWarnings(void);		///< Add warning headers for any data-types that have been modified
+
   static bool descendantsOutside(Varnode *vn);
   static void encodeVarnode(Encoder &encoder,VarnodeLocSet::const_iterator iter,VarnodeLocSet::const_iterator enditer);
   static bool checkIndirectUse(Varnode *vn);
@@ -445,6 +446,7 @@ public:
   PcodeOp *newIndirectOp(PcodeOp *indeffect,const Address &addr,int4 sz,uint4 extraFlags);
   PcodeOp *newIndirectCreation(PcodeOp *indeffect,const Address &addr,int4 sz,bool possibleout);
   void markIndirectCreation(PcodeOp *indop,bool possibleOutput);	///< Convert CPUI_INDIRECT into an \e indirect \e creation
+  void markReturnCopy(PcodeOp *op) { op->flags |= PcodeOp::return_copy; }	///< Mark COPY as returning a global value
   PcodeOp *findOp(const SeqNum &sq) { return obank.findOp(sq); }	///< Find PcodeOp with given sequence number
   void opInsertBefore(PcodeOp *op,PcodeOp *follow);		///< Insert given PcodeOp before a specific op
   void opInsertAfter(PcodeOp *op,PcodeOp *prev);		///< Insert given PcodeOp after a specific op

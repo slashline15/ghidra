@@ -114,6 +114,8 @@ public class VSCodeProjectScript extends GhidraScript {
 		json.addProperty("java.import.gradle.enabled", false);
 		json.addProperty("java.import.gradle.wrapper.enabled", false);
 		json.addProperty("java.import.gradle.version", gradleVersion);
+		json.addProperty("java.format.settings.url",
+			new File(installDir, "support/eclipse/GhidraEclipseFormatter.xml").getAbsolutePath());
 
 		JsonArray sourcePathArray = new JsonArray();
 		json.add("java.project.sourcePaths", sourcePathArray);
@@ -257,7 +259,7 @@ public class VSCodeProjectScript extends GhidraScript {
 	private void writeSampleModule(File installDir, File projectDir) throws IOException {
 		// Copy Skeleton and rename module
 		String skeleton = "Skeleton";
-		File skeletonDir = new File(installDir, "Extensions/Ghidra/skeleton");
+		File skeletonDir = new File(installDir, "Extensions/Ghidra/Skeleton");
 		FileUtils.copyDirectory(skeletonDir, projectDir);
 
 		// Rename package
