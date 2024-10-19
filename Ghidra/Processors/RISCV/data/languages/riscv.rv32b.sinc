@@ -67,7 +67,7 @@ define pcodeop packw;
 :packw rd, rs1, rs2 is op0006=0x3b & op1214=0x4 & op2531=0x04 & rd & rs1 & rs2 {rd=packw(rs1,rs2);}
 
 define pcodeop zext_h;
-:zext.h rd, rs2 is op0006=0x3b & op1214=0x4 & op2531=0x04 & rd & op2024=0 & rs2 {rd=zext_h(rs2);}
+:zext.h rd, rs1 is op0006=0x3b & op1214=0x4 & op2531=0x04 & rd & op2024=0 & rs1 {rd=zext_h(rs1);}
 
 define pcodeop cpop;
 :cpop rd, rs1 is op0006=0x13 & op1214=0x1 & op2024=0x2 & op2531=0x30 & rd & rs1 {rd=cpop(rs1);}
