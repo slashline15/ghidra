@@ -328,7 +328,7 @@ define pcodeop th.mvneqz;
 :th.sbia rd, (rs1), simm2024, uimm2526 is op2731=0x03 & uimm2526 & simm2024 & rs1 & op1214=0x5 & rd & op0006=0xb
 {
     local ea:$(XLEN) = rs1;
-    *[ram]:1 ea = rd;
+    *[ram]:1 ea = rd:1;
     rs1 = rs1 + (sext(simm2024)<< uimm2526);
 }
 
@@ -337,14 +337,14 @@ define pcodeop th.mvneqz;
 {
     rs1 = rs1 + (sext(simm2024)<< uimm2526);
     local ea:$(XLEN) = rs1;
-    *[ram]:1 ea = rd;
+    *[ram]:1 ea = rd:1;
 }
 
 #    Store indexed half-word, increment address after loading
 :th.shia rd, (rs1), simm2024, uimm2526 is op2731=0x07 & uimm2526 & simm2024 & rs1 & op1214=0x5 & rd & op0006=0xb
 {
     local ea:$(XLEN) = rs1;
-    *[ram]:2 ea = rd;
+    *[ram]:2 ea = rd:2;
     rs1 = rs1 + (sext(simm2024)<< uimm2526);
 }
 
@@ -353,14 +353,14 @@ define pcodeop th.mvneqz;
 {
     rs1 = rs1 + (sext(simm2024)<< uimm2526);
     local ea:$(XLEN) = rs1;
-    *[ram]:2 ea = rd;
+    *[ram]:2 ea = rd:2;
 }
 
 #    Store indexed word, increment address after loading
 :th.swia rd, (rs1), simm2024, uimm2526 is op2731=0x0b & uimm2526 & simm2024 & rs1 & op1214=0x5 & rd & op0006=0xb
 {
     local ea:$(XLEN) = rs1;
-    *[ram]:4 ea = rd;
+    *[ram]:4 ea = rd:4;
     rs1 = rs1 + (sext(simm2024)<< uimm2526);
 }
 
@@ -369,7 +369,7 @@ define pcodeop th.mvneqz;
 {
     rs1 = rs1 + (sext(simm2024)<< uimm2526);
     local ea:$(XLEN) = rs1;
-    *[ram]:4 ea = rd;
+    *[ram]:4 ea = rd:4;
 }
 
 @if ADDRSIZE == "64"
@@ -446,21 +446,21 @@ define pcodeop th.mvneqz;
 :th.srb rd, rs1, rs2, uimm2526 is op2731=0x00 & uimm2526 & rs2 & rs1 & op1214=0x5 & rd & op0006=0xb
 {
     local ea:$(XLEN) = rs1 + (rs2 << uimm2526);
-    *[ram]:1 ea = rd;
+    *[ram]:1 ea = rd:1;
 }
 
 #    Store indexed half-word
 :th.srh rd, rs1, rs2, uimm2526 is op2731=0x04 & uimm2526 & rs2 & rs1 & op1214=0x5 & rd & op0006=0xb
 {
     local ea:$(XLEN) = rs1 + (rs2 << uimm2526);
-    *[ram]:2 ea = rd;
+    *[ram]:2 ea = rd:2;
 }
 
 #    Store indexed word
 :th.srw rd, rs1, rs2, uimm2526 is op2731=0x08 & uimm2526 & rs2 & rs1 & op1214=0x5 & rd & op0006=0xb
 {
     local ea:$(XLEN) = rs1 + (rs2 << uimm2526);
-    *[ram]:4 ea = rd;
+    *[ram]:4 ea = rd:4;
 }
 
 @if ADDRSIZE == "64"
@@ -527,21 +527,21 @@ define pcodeop th.mvneqz;
 :th.surb rd, rs1, rs2, uimm2526 is op2731=0x02 & uimm2526 & rs2 & rs1 & op1214=0x5 & rd & op0006=0xb
 {
     local ea:$(XLEN) = rs1 + (zext(rs2) << uimm2526);
-    *[ram]:1 ea = rd;
+    *[ram]:1 ea = rd:1;
 }
 
 #    Store unsigned indexed half-word
 :th.surh rd, rs1, rs2, uimm2526 is op2731=0x06 & uimm2526 & rs2 & rs1 & op1214=0x5 & rd & op0006=0xb
 {
     local ea:$(XLEN) = rs1 + (zext(rs2) << uimm2526);
-    *[ram]:2 ea = rd;
+    *[ram]:2 ea = rd:2;
 }
 
 #    Store unsigned indexed word
 :th.surw rd, rs1, rs2, uimm2526 is op2731=0x0a & uimm2526 & rs2 & rs1 & op1214=0x5 & rd & op0006=0xb
 {
     local ea:$(XLEN) = rs1 + (zext(rs2) << uimm2526);
-    *[ram]:4 ea = rd;
+    *[ram]:4 ea = rd:4;
 }
 
 @if ADDRSIZE == "64"
@@ -598,8 +598,8 @@ define pcodeop th.mvneqz;
 :th.swd rd, rs2, (rs1), uimm2526, 3 is op2731=0x1c & uimm2526 & rs2 & rs1 & op1214=0x5 & rd & op0006=0xb
 {
     local ea:$(XLEN) = rs1 + (zext(uimm2526) << 3);
-    *[ram]:4 ea = rd;
-    *[ram]:4 (ea + 4) = rs2;
+    *[ram]:4 ea = rd:4;
+    *[ram]:4 (ea + 4) = rs2:4;
 }
 @endif
 
@@ -646,7 +646,7 @@ define pcodeop th.mvneqz;
 :th.fsrw frd, rs1, rs2, uimm2526 is op2731=0x08 & uimm2526 & rs2 & rs1 & op1214=0x7 & frd & op0006=0xb
 {
     local ea:$(XLEN) = rs1 + (rs2 << uimm2526);
-    *[ram]:4 ea = frd;
+    *[ram]:4 ea = frd:4;
 }
 
 #    Store unsigned indexed double-precision floating point value
@@ -660,7 +660,7 @@ define pcodeop th.mvneqz;
 :th.fsurw frd, rs1, rs2, uimm2526 is op2731=0x0a & uimm2526 & rs2 & rs1 & op1214=0x7 & frd & op0006=0xb
 {
     local ea:$(XLEN) = rs1 + (zext(rs2) << uimm2526);
-    *[ram]:4 ea = frd;
+    *[ram]:4 ea = frd:4;
 }
 
 @endif
